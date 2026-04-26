@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Delivery Label</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f5f5f5;
+    }
+
+    .label {
+      width: 400px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border: 2px solid black;
+      position: relative;
+      min-height: 500px;
+    }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid black;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+
+    .logo {
+      height: 75px;
+      object-fit: contain;
+    }
+
+    .company {
+      text-align: right;
+    }
+
+    .company h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .company p {
+      margin: 0;
+      font-size: 12px;
+    }
+
+    h3 {
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    .divider {
+      border-top: 1px dashed black;
+      margin: 10px 0;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 10px;
+      left: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    @media print {
+      button {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="label">
+
+  <!-- HEADER -->
+  <div class="header">
+    <img src="logo.png" class="logo" alt="Logo">
+
+    <div class="company">
+      <h2>WRAP CORNER</h2>
+      <p>Gifting made easy for the people you love</p>
+    </div>
+  </div>
+
+  <h3>DELIVERY</h3>
+
+  <p><b>Order ID:</b> <span id="orderId"></span></p>
+
+  <p>
+    <b>To Customer:</b><br>
+    <span id="name"></span><br>
+    <span id="address"></span><br>
+    Phone: <span id="phone"></span>
+  </p>
+
+  <div class="divider"></div>
+
+  <p>
+    <b>From:</b><br>
+    WRAP CORNER<br>
+    Villapuram,
+    Madurai:625012
+  </p>
+
+  <div class="divider"></div>
+
+  <p>
+    <b>Payment:</b> <span id="payment"></span><br>
+    <b>Amount:</b> ₹<span id="amount"></span>
+  </p>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span><b>Date:</b> <span id="date"></span></span>
+    <span><b>Place:</b> <span id="place"></span>Madurai</span>
+  </div>
+
+</div>
+
+<button onclick="window.print()">Print / Save PDF</button>
+
+<script>
+const data = JSON.parse(localStorage.getItem("labelData"));
+
+if (data) {
+  document.getElementById("orderId").innerText = data.orderId;
+  document.getElementById("name").innerText = data.name;
+  document.getElementById("address").innerText = data.address;
+  document.getElementById("phone").innerText = data.phone;
+  document.getElementById("amount").innerText = data.amount;
+  document.getElementById("payment").innerText = data.payment;
+  
+}
+
+// Auto date
+let today = new Date();
+document.getElementById("date").innerText =
+  today.toLocaleDateString("en-GB");
+</script>
+
+</body>
+</html>
